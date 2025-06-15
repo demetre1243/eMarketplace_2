@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${ad.name}">Advertisement</title>
+</head>
+<body>
+<h1 th:text="${ad.name}"></h1>
+<p th:text="${ad.description}"></p>
+<p>Price: $<span th:text="${ad.price}"></span></p>
+<p>Submitted: <span th:text="${#temporals.format(ad.submissionTime, 'yyyy-MM-dd HH:mm')}"></span></p>
+<p>User: <span th:text="${ad.user.username}"></span></p>
+<img th:if="${ad.photoUrl != null}" th:src="@{${ad.photoUrl}}" alt="Photo" width="300"/>
+<a href="/market">Back to list</a>
+</body>
+</html>

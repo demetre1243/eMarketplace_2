@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Marketplace</title>
+</head>
+<body>
+<h1>Advertisements</h1>
+
+<form method="get" th:action="@{/market}">
+    <select name="sort">
+        <option value="date_desc" th:selected="${sort == 'date_desc'}">Date Descending</option>
+        <option value="date_asc" th:selected="${sort == 'date_asc'}">Date Ascending</option>
+        <option value="price_asc" th:selected="${sort == 'price_asc'}">Price Ascending</option>
+        <option value="price_desc" th:selected="${sort == 'price_desc'}">Price Descending</option>
+    </select>
+    <button type="submit">Sort</button>
+</form>
+
+<div th:each="ad : ${ads}">
+    <a th:href="@{/market/item/{id}(id=${ad.id})}">
+        <h2 th:text="${ad.title}">Ad title</h2>
+        <p th:text="${ad.price}">Price</p>
+        <p th:text="${ad.user.username}">Posted by</p>
+    </a>
+</div>
+
+<a th:href="@{/market/new}">Create New Advertisement</a>
+
+</body>
+</html>

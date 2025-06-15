@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Item</title>
+</head>
+<body>
+<h1 th:text="${ad.title}">Title</h1>
+<p th:text="${ad.description}">Description</p>
+<p th:text="${ad.price}">Price</p>
+<p th:text="${ad.submissionTime}">Posted at</p>
+<p th:text="${ad.user.username}">Posted by</p>
+<a th:href="@{/market}">Back to list</a>
+</body>
+</html>

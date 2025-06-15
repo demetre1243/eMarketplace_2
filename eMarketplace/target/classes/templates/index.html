@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>eMarketplace</title>
+</head>
+<body>
+<h1>Advertisements</h1>
+
+<form method="get" th:action="@{/market}">
+    Sort by:
+    <select name="sort" onchange="this.form.submit()">
+        <option value="date_desc" th:selected="${sort == 'date_desc'}">Date Descending</option>
+        <option value="date_asc" th:selected="${sort == 'date_asc'}">Date Ascending</option>
+        <option value="price_asc" th:selected="${sort == 'price_asc'}">Price Ascending</option>
+        <option value="price_desc" th:selected="${sort == 'price_desc'}">Price Descending</option>
+    </select>
+</form>
+
+<div th:each="ad : ${ads.content}">
+    <h2><a th:href="@{'/market/item/' + ${ad.id}}" th:text="${ad.name}"></a></h2>
+    <p th:text="${ad.description}"></p>
+    <p>Price: $<span th:text="${ad.price}"></span></p>
+    <p>Submitted: <span th:text="${#temporals.format(ad.submissionTime, 'yyyy-MM-dd HH:mm')}"></span></p>
+    <p>User: <span th:text="${ad.user.username}"></span></p>
+    <img th:if="${ad.photoUrl != null}" th:src="@{${ad.photoUrl}}" alt="Photo" width="200"/>
+</div>
+
+<div>
+    <span th:if="${currentPage > 0}">
+        <a th:href="@{/market(page=${currentPage - 1}, sort=${sort})}">Previous</a>
+    </span>
+    <span th:text="${currentPage + 1} + ' / ' + ${totalPages}"></span>
+    <span th:if="${currentPage + 1 < totalPages}">
+        <a th:href="@{/market(page=${currentPage + 1}, sort=${sort})}">Next</a>
+    </span>
+</div>
+
+<a href="/market/new">Add new advertisement</a>
+
+</body>
+</html>
